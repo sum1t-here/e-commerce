@@ -14,10 +14,35 @@ export function ProductForm({ product }: { product?: Product | null }) {
   const [priceInRs, setPriceInRs] = useState<number | undefined>(
     product?.priceInRs
   );
+  const [imageUrl, setImageUrl] = useState<string | null>(
+    product?.imagePath || null
+  );
   const [error, action] = useFormState(
     product == null ? addProduct : updateProduct.bind(null, product.id),
     {}
   );
+
+  // Function to handle image upload
+  const handleImageUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+    );
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const data = await response.json();
+    setImageUrl(data.secure_url); // Save the Cloudinary URL in state
+  };
+
   return (
     <form action={action} className="space-y-8">
       <div className="space-y-2">
@@ -68,14 +93,25 @@ export function ProductForm({ product }: { product?: Product | null }) {
       </div>
       <div className="space-y-2">
         <Label htmlFor="Image">Image</Label>
-        <Input type="file" id="image" name="image" required={product == null} />
-        {product != null && (
-          <Image
-            src={product.imagePath}
-            height="400"
-            width="400"
-            alt="Product Image"
-          />
+        <Input
+          type="file"
+          id="image"
+          name="image"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) handleImageUpload(file);
+          }}
+          required={product == null}
+        />
+        {imageUrl && (
+          <div>
+            <img
+              src={imageUrl}
+              alt="Uploaded Product Image"
+              width="400"
+              height="400"
+            />
+          </div>
         )}
         {error.image && <div className="text-destructive">{error.image}</div>}
       </div>
