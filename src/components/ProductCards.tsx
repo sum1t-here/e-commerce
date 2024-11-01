@@ -32,7 +32,7 @@ export function ProductCard({
       </div>
       <CardHeader>
         <CardTitle>{name}</CardTitle>
-        <CardDescription>{priceInRs}</CardDescription>
+        <CardDescription>₹{priceInRs}</CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
         <p className="line-clamp-4">{description}</p>
