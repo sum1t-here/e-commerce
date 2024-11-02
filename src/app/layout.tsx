@@ -5,8 +5,8 @@ import { Metadata } from "next"; // If you're using metadata
 
 // Define metadata for the page (optional)
 export const metadata: Metadata = {
-  title: "Your Site Title",
-  description: "Your site description",
+  title: "E-Commerce",
+  description: "A simple solution for all your needs",
 };
 
 export default function RootLayout({
@@ -16,11 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {" "}
-      {/* Specify the language for accessibility and SEO */}
-      <body>
-        {children} {/* Render the child components */}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

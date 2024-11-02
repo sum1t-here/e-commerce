@@ -103,7 +103,8 @@ function DashBoardCard({ title, subtitle, body }: DashBoardCardProps) {
       <CardHeader>
         <CardTitle>{title}</CardTitle> {/* Card Title */}
       </CardHeader>
-      <CardDescription>{subtitle}</CardDescription> {/* Card Subtitle */}
+      <CardDescription className="p-6">{subtitle}</CardDescription>{" "}
+      {/* Card Subtitle */}
       <CardContent>{body}</CardContent> {/* Main content (value) */}
     </Card>
   );

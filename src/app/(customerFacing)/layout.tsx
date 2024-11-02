@@ -4,7 +4,7 @@ export default function Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <>
+    <div>
       <Nav>
         <NavLink href="/">Home</NavLink>
         <NavLink href="/products">Products</NavLink>
@@ -13,6 +13,6 @@ export default function Layout({
       <div className="flex justify-center">
         <div className="container mt-8">{children}</div>
       </div>
-    </>
+    </div>
   );
 }
